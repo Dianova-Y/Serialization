@@ -45,6 +45,7 @@ public class Basket {
         }
     }
 
+
     public static Basket loadFromTxtFile(File file) {
         Basket basket = null;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {

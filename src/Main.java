@@ -4,15 +4,20 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        File file = new File("basket.txt");
         Scanner scanner = new Scanner(System.in);
-
+        File file = new File("basket.txt");
         String[] products = {"Молоко", "Яблоки", "Сыр", "картофель", "Хлеб"};
         int[] prices = {80, 50, 200, 35, 45};
-        int[] numb = new int[5];
-        //int sum = 0;
+        Basket basket;
 
-        Basket basket = new Basket(products, prices);
+        if (file.exists()) {
+            System.out.println("Загружаю корзину: ");
+            basket = Basket.loadFromTxtFile(file);
+            basket.printCart();
+            System.out.println();
+        } else {
+            basket = new Basket(products, prices);
+        }
 
         System.out.println("Список товаров:");
         for (int i = 0; i < products.length; i++) {
@@ -32,7 +37,6 @@ public class Main {
             int numProduct = Integer.parseInt(parts[0]) - 1;
             int amount = Integer.parseInt(parts[1]);
             basket.addToCart(numProduct, amount);
-
         }
     }
 }
