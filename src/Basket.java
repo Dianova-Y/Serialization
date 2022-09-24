@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.stream.IntStream;
 
 public class Basket {
     private final String[] products;
@@ -41,7 +40,7 @@ public class Basket {
                     out.write(products[i] + " " + prices[i] + " " + numb[i] + "\n");
                 }
             }
-        }  catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -68,13 +67,4 @@ public class Basket {
         }
         return basket;
     }
-
-    public String[] getProducts() {
-        return products;
-    }
-
-    public int[] getPrices() {
-        return prices;
-    }
-
 }
