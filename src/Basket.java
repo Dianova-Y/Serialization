@@ -1,6 +1,7 @@
 import java.io.*;
 
-public class Basket {
+public class Basket implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final String[] products;
     private final int[] prices;
     private final int[] numb;
@@ -45,6 +46,15 @@ public class Basket {
         }
     }
 
+    public void saveBin(File file) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(file);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(this);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public static Basket loadFromTxtFile(File file) {
         Basket basket = null;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -63,6 +73,17 @@ public class Basket {
             }
             basket = new Basket(products, prices, numb);
         } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return basket;
+    }
+
+    public static Basket loadFromBinFile(File file) throws IOException, ClassNotFoundException {
+        Basket basket = null;
+        try (FileInputStream fis = new FileInputStream(file);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            basket = (Basket) ois.readObject();
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         return basket;
